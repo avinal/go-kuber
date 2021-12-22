@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2021 Avinal Kumar <avinal.xlvii@gmail.com>
+
+name: publish image
+
+on: [ release ]
+
+jobs:
+  publish-image:
+    runs-on: ubuntu-latest
+    env: 
+      IMAGE_NAME:  ghcr.io/avinal/go-kuber:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Build the lark Docker image
+        run: docker build . --tag $IMAGE_NAME
+
+      - name: Push lark to GitHub Container Registry
+        run: docker push $IMAGE_NAME
