@@ -5,11 +5,11 @@ metadata:
 spec:
   params:
     - name: DOCKERFILE_PATH
-      default: "Dockerfile"
+      default: ./Dockerfile
     - name: IMAGE_NAME
       default: "ghcr.io/avinal/go-kuber:latest"
     - name: CONTEXT
-      default: "."
+      default: ./
   resources:
     inputs:
       - name: source
@@ -21,6 +21,8 @@ spec:
         - docker
       args:
         - build
-        - --tag=$IMAGE_NAME
-        - --file=$DOCKERFILE_PATH
-        - $CONTEXT
+        - --tag
+        - ghcr.io/avinal/go-kuber:latest
+        - --file
+        - ./Dockerfile
+        - .

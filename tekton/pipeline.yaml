@@ -10,20 +10,20 @@ spec:
     - name: IMAGE_NAME
       default: "ghcr.io/avinal/go-kuber:latest"
   tasks:
-    - name: build
-      taskRef:
-        name: "build-docker"
-      params:
-        - name: IMAGE_NAME
-          value: $IMAGE_NAME
-      resources:
-        inputs:
-          - name: source
-            resource: source
+    # - name: build
+    #   taskRef:
+    #     name: "build-docker"
+    #   params:
+    #     - name: IMAGE_NAME
+    #       value: $(params.IMAGE_NAME)
+    #   resources:
+    #     inputs:
+    #       - name: source
+    #         resource: source
 
     - name: deploy
-      runAfter:
-        - "build"
+      # runAfter:
+      #   - "build"
       taskRef:
         name: "deploy-kubectl"
       resources:

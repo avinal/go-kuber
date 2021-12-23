@@ -18,4 +18,4 @@ spec:
         - kubectl
         - apply
         - -f
-        - $K8S_DIRECTORY_PATH
+        - $(params.K8S_DIRECTORY_PATH)
