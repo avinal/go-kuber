@@ -3,7 +3,7 @@
 
 name: publish image
 
-on: [ release ]
+on: [ push ]
 
 jobs:
   publish-image:

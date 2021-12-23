@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: go-kuber-pod
+  labels:
+    name: go-kuber-pod
+spec:
+  containers:
+  - name: go-kuber-pod
+    image: ghcr.io/avinal/go-kuber:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+

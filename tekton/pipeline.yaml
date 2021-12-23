@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: go-kuber
+spec:
+  resources:
+    - name: source
+      type: git
+  params:
+    - name: IMAGE_NAME
+      default: "ghcr.io/avinal/go-kuber:latest"
+  tasks:
+    - name: build
+      taskRef:
+        name: "build-docker"
+      params:
+        - name: IMAGE_NAME
+          value: $IMAGE_NAME
+      resources:
+        inputs:
+          - name: source
+            resource: source
+
+    - name: deploy
+      runAfter:
+        - "build"
+      taskRef:
+        name: "deploy-kubectl"
+      resources:
+        inputs:
+          - name: source
+            resource: source

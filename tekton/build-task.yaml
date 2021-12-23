@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: "build-docker"
+spec:
+  params:
+    - name: DOCKERFILE_PATH
+      default: "Dockerfile"
+    - name: IMAGE_NAME
+      default: "ghcr.io/avinal/go-kuber:latest"
+    - name: CONTEXT
+      default: "."
+  resources:
+    inputs:
+      - name: source
+        type: git
+  steps:
+    - name: docker
+      image: docker
+      command:
+        - docker
+      args:
+        - build
+        - --tag=$IMAGE_NAME
+        - --file=$DOCKERFILE_PATH
+        - $CONTEXT
